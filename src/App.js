@@ -221,13 +221,13 @@ const App = () => {
     setSelected(index)
   }
   useEffect(() => {
-    axios.get("https://api.covidactnow.org/v2/state/CA.json?apiKey=f237314799374a40a7b9ab780efaa596")
+    axios.get(`https://api.covidactnow.org/v2/state/CA.json?apiKey=${process.env.REACT_APP_APIKEY}`)
       .then(res => {
         setState(res.data)
       }).catch(error => console.log(error))
   }, [])
   useEffect(() => {
-    axios.get("https://api.covidactnow.org/v2/states.timeseries.json?apiKey=f237314799374a40a7b9ab780efaa596")
+    axios.get(`https://api.covidactnow.org/v2/states.timeseries.json?apiKey=${process.env.REACT_APP_APIKEY}`)
       .then(res => {
           setStates(res.data)
         }).catch(error => console.log(error))
