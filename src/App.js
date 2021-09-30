@@ -35,9 +35,6 @@ padding-top:10vh;
     flex-direction:column;
     padding:1em;
   }
-  .WY{
-    border:none;
-  }
   .state-container{
     width:90%;
     margin:auto;
@@ -207,6 +204,9 @@ padding-top:10vh;
           }
         }
       }
+    }
+    .WY{
+      border:none;
     }
   }
 `
