@@ -262,16 +262,16 @@ const App = () => {
               </div>
             </div>
             <div className={selected === index ? "scroll-down-content show" : "scroll-down-content"}>
-              <div className="deseased">
-                <h1>Deseased</h1>
-                <p>{item.actuals.deaths.toLocaleString()}</p>
-              </div>
               <div className="population">
                 <h1>Population</h1>
                 <p>{item.population.toLocaleString()}</p>
               </div>
+              <div className="deseased">
+                <h1>Deseased</h1>
+                <p>{item.actuals.deaths.toLocaleString()}</p>
+              </div>
               <div className="vaccination">
-                <h1>Total Vaccinations</h1>
+                <h1>Recovered</h1>
                 <p>{item.actuals.vaccinationsCompleted.toLocaleString()}</p>
               </div>
               <div className="link" target="_blank">
