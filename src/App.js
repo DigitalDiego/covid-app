@@ -271,7 +271,7 @@ const App = () => {
                 <p>{item.actuals.deaths.toLocaleString()}</p>
               </div>
               <div className="vaccination">
-                <h1>Recovered</h1>
+                <h1>Total Vaccinations</h1>
                 <p>{item.actuals.vaccinationsCompleted.toLocaleString()}</p>
               </div>
               <div className="link" target="_blank">
