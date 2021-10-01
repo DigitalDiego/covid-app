@@ -6,11 +6,13 @@ import {AiOutlinePlus} from 'react-icons/ai'
 import {AiOutlineMinus} from 'react-icons/ai'
 const Container = styled.section`
 padding-top:10vh;
-  header{
+  .header{
     width:100%;
     height:10vh;
-    display:grid;
-    place-items:center;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
     background:linen;
     position:fixed;
     top:0;
@@ -34,6 +36,9 @@ padding-top:10vh;
     align-items:center;
     flex-direction:column;
     padding:1em;
+  }
+  .website-container{
+    display:none;
   }
   .state-container{
     width:90%;
@@ -205,6 +210,80 @@ padding-top:10vh;
       }
     }
   }
+  @media only screen and (min-width:800px){
+    padding-top:15vh;
+    .header{
+      height:15vh;
+      h1{
+        font-size:3em;
+      }
+    }
+    .state-container{
+      display:none;
+    }
+    .website-container{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(550px, 1fr));
+      gap:1em;
+      width:100%;
+      min-height:85vh;
+      padding:1em;
+    }
+  }
+  @media only screen and (min-width:1800px){
+    padding-top:10vh;
+    .header{
+      height:10vh;
+    }
+    .website-container{
+      min-height:90vh;
+    }
+  }
+`
+const State = styled.div`
+  width:590px;
+  border:2px solid linen;
+  border-radius:10px;
+  padding:.5em 1em;
+`
+const StateHeader = styled.header`
+  width:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+`
+const StateName = styled.h1`
+  font-size:2em;
+  color:linen;
+  display:inline;
+  &::after{
+    content:'';
+    display:block;
+    background:linen;
+    width:100%;
+    height:2px;
+  }
+`
+const StateContent = styled.div`
+  width:100%;
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+  gap:1em;
+`
+const StateStat = styled.div`
+  width:200px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+`
+const StatName = styled.h2`
+  color:linen;
+  text-align:center;
+  font-size:1.4em;
+`
+const Stat = styled.p`
+  color:linen;
 `
 const App = () => {
   const [states, setStates] = useState([])
@@ -215,6 +294,59 @@ const App = () => {
       return setSelected(null)
     }
     setSelected(index)
+  }
+  const stateAbr = {
+    AK:"Alaska",
+    AL:"Alabama",
+    AR:"Arkansa",
+    AZ:"Arizona",
+    CA:"California",
+    CO:"Colorado",
+    CT:"Conneticut",
+    DC:"Washington DC",
+    DE:"Delaware",
+    FL:"Florida",
+    GA:"Georgia",
+    HI:"Hawaii",
+    IA:"Iowa",
+    ID:"Idaho",
+    IL:"Illinois",
+    IN:"Indiana",
+    KS:"Kansas",
+    KY:"Kentucky",
+    LA:"Louisiana",
+    ME:"Maine",
+    MD:"Maryland",
+    MA:"Massachusetts",
+    MI:"Michigan",
+    MN:"Minnesota",
+    MS:"Mississippi",
+    MO:"Missouri",
+    MT:"Montana",
+    NE:"Nebraska",
+    NV:"Nevada",
+    NH:"New Hampshire",
+    NJ:"New Jersey",
+    NM:"New Mexico",
+    NY:"New York",
+    NC:"North Carolina",
+    ND:"North Dakota",
+    OH:"Ohio",
+    OK:"Oklahoma",
+    OR:"Oregon",
+    PA:"Pennsylvania",
+    RI:"Rhode Island",
+    SC:"South Carolina",
+    SD:"South Dakota",
+    TN:"Tennesse",
+    TX:"Texas",
+    UT:"Utah",
+    VT:"Vermont",
+    VA:"Virginia",
+    WA:"Washington",
+    WV:"West Virginia",
+    WI:"Wisconsin",
+    WY:"Wyoming"
   }
   useEffect(() => {
     axios.get(`https://api.covidactnow.org/v2/state/CA.json?apiKey=${process.env.REACT_APP_APIKEY}`)
@@ -231,8 +363,8 @@ const App = () => {
   return (
     <Container>
       <GlobalStyle/>
-      <header>
-        <h1>US Covid Cases</h1>
+      <header className="header">
+        <h1>US Covid Stats</h1>
         <p>Last Updated: {state.lastUpdatedDate}</p>
       </header>
       <div className="state-container">
@@ -275,8 +407,39 @@ const App = () => {
               </div>
             </div>
           </div>
-        ))}
-      </div>
+          ))}
+          </div>
+        <div className="website-container">
+          {states.map((item, index) => (
+            <State key={index}>
+              <StateHeader>
+                <StateName>{stateAbr[item.state]}</StateName>
+              </StateHeader>
+              <StateContent>
+                <StateStat>
+                  <StatName>Population</StatName>
+                  <Stat>{item.population.toLocaleString()}</Stat>
+                </StateStat>
+                <StateStat>
+                  <StatName>Cases</StatName>
+                  <Stat>{item.actuals.cases.toLocaleString()}</Stat>
+                </StateStat>
+                <StateStat>
+                  <StatName>New Cases Today</StatName>
+                  <Stat>+{item.actuals.newCases.toLocaleString()}</Stat>
+                </StateStat>
+                <StateStat>
+                  <StatName>Deceased</StatName>
+                  <Stat>{item.actuals.deaths.toLocaleString()}</Stat>
+                </StateStat>
+                <StateStat>
+                  <StatName>Vaccinated</StatName>
+                  <Stat>{item.actuals.vaccinationsCompleted.toLocaleString()}</Stat>
+                </StateStat>
+              </StateContent>
+            </State>
+          ))}
+        </div>
     </Container>
   )
 }
