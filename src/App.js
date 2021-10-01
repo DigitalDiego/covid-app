@@ -40,7 +40,6 @@ padding-top:10vh;
     margin:auto;
     .state{
       width:100%;
-      border-bottom:1px solid linen;
       display:flex;
       justify-content:center;
       align-items:center;
@@ -204,9 +203,6 @@ padding-top:10vh;
           }
         }
       }
-    }
-    .WY{
-      border:none;
     }
   }
 `
