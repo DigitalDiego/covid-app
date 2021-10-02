@@ -269,6 +269,7 @@ const StateContent = styled.div`
   display:grid;
   grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
   gap:1em;
+  place-items:center;
 `
 const StateStat = styled.div`
   width:200px;
@@ -321,6 +322,7 @@ const App = () => {
     MI:"Michigan",
     MN:"Minnesota",
     MS:"Mississippi",
+    MP:"Northern Mariana Islands",
     MO:"Missouri",
     MT:"Montana",
     NE:"Nebraska",
